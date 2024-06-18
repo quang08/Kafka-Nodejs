@@ -4,18 +4,18 @@ class KafkaConfig {
   constructor() {
     this.kafka = new Kafka({
       clientId: "nodejs-kafka",
-      brokers: ["localhost:9093"],
+      brokers: ["localhost:9092"],
     });
     this.producer = this.kafka.producer();
-    this.consumer = this.kafka.consumer();
+    this.consumer = this.kafka.consumer({ groupId: "test-group" });
   }
 
-  async produce(topic, message) {
+  async produce(topic, messages) {
     try {
-      await this.producer().connect(); //connect to the producer
+      await this.producer.connect(); // connect to the producer
       await this.producer.send({
         topic: topic,
-        message: message,
+        messages: messages, // messages should be an array
       });
     } catch (e) {
       console.error(e);

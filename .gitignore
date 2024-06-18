@@ -1,0 +1,4 @@
+node_modules/
+.gitignore.swp
+package-lock.json
+index.js.swp
